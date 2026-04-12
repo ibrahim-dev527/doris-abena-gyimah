@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doris Abena Gyimah — Speaker · Advocate · Educator</title>
+
+  <!-- =============================================
+       FONTS — Playfair Display (display) +
+               Cormorant Garamond (accent) +
+               DM Sans (body)
+  ============================================= -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES — edit colours/sizes here easily
+    ============================================================ */
+    :root {
+      --navy:      #0f0c29;
+      --plum:      #2d1b69;
+      --violet:    #3d2c8d;
+      --gold:      #c9a84c;
+      --gold-lt:   #e8c97a;
+      --peach:     #f5c6a0;
+      --cream:     #fdf8f2;
+      --white:     #ffffff;
+      --dark-txt:  #1a1a2e;
+      --mid-txt:   #4a4a6a;
+      --light-txt: #8888aa;
+
+      --font-display: 'Playfair Display', serif;
+      --font-accent:  'Cormorant Garamond', serif;
+      --font-body:    'DM Sans', sans-serif;
+
+      --radius: 18px;
+      --trans:  0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--dark-txt);
+      overflow-x: hidden;
+      cursor: none; /* custom cursor */
+    }
+    img { display: block; max-width: 100%; }
+    a  { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ============================================================
+       CUSTOM CURSOR
+    ============================================================ */
+    #cursor-dot, #cursor-ring {
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      border-radius: 50%; transform: translate(-50%, -50%);
+    }
+    #cursor-dot  { width: 8px;  height: 8px;  background: var(--gold); transition: transform .15s; }
+    #cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--gold); opacity: .6;
+                   transition: transform .35s cubic-bezier(.17,.67,.83,.67), opacity .3s; }
+    body:hover #cursor-ring { opacity: 1; }
+
+    /* ============================================================
+       PAGE LOADER
+    ============================================================ */
+    #loader {
+      position: fixed; inset: 0; z-index: 9998;
+      background: var(--navy);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity .8s ease, visibility .8s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-name {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 3rem);
+      color: var(--cream); letter-spacing: .12em;
+      animation: loaderPulse 1.6s ease-in-out infinite;
+    }
+    .loader-line {
+      margin-top: 1.4rem; width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--peach));
+      animation: loaderLine 1.8s ease forwards;
+    }
+    @keyframes loaderPulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+    @keyframes loaderLine  { to { width: 220px; } }
+
+    /* ============================================================
+       NOISE / GRAIN OVERLAY (subtle texture)
+    ============================================================ */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
+
+    /* ============================================================
+       STICKY NAVBAR
+    ============================================================ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background var(--trans), box-shadow var(--trans), padding var(--trans);
+    }
+    #navbar.scrolled {
+      background: rgba(15, 12, 41, .92);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 2px 40px rgba(0,0,0,.3);
+      padding: .85rem 4rem;
+    }
+    .nav-logo {
+      font-family: var(--font-display); font-size: 1.25rem; font-weight: 700;
+      color: var(--white); letter-spacing: .06em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.2rem; }
+    .nav-links a {
+      font-size: .82rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.7);
+      transition: color var(--trans);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--gold); transform: scaleX(0);
+      transition: transform var(--trans);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+    /* Hamburger */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--trans); }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--plum) 55%, #5c2d91 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    /* Decorative blobs */
+    #hero::before, #hero::after {
+      content: ''; position: absolute; border-radius: 50%; pointer-events: none;
+    }
+    #hero::before {
+      width: 600px; height: 600px; right: -100px; top: -120px;
+      background: radial-gradient(circle, rgba(201,168,76,.15) 0%, transparent 70%);
+    }
+    #hero::after {
+      width: 400px; height: 400px; left: -60px; bottom: -80px;
+      background: radial-gradient(circle, rgba(245,198,160,.1) 0%, transparent 70%);
+    }
+
+    /* Floating orb particles */
+    .orb {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      animation: float 8s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100%{ transform: translateY(0) scale(1); opacity:.5 }
+      50%     { transform: translateY(-30px) scale(1.05); opacity:.8 }
+    }
+
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      gap: 4rem; max-width: 1200px; width: 100%;
+      padding: 7rem 4rem 4rem;
+    }
+    .hero-text { z-index: 2; }
+    .hero-eyebrow {
+      font-family: var(--font-accent); font-size: 1.1rem; font-style: italic;
+      color: var(--gold-lt); letter-spacing: .15em; margin-bottom: 1rem;
+      opacity: 0; animation: slideUp .8s .4s ease forwards;
+    }
+    .hero-name {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: clamp(2.6rem, 5.5vw, 5.2rem);
+      color: var(--white); line-height: 1.05; margin-bottom: 1.2rem;
+      opacity: 0; animation: slideUp .9s .55s ease forwards;
+    }
+    .hero-name .gold { color: var(--gold); }
+
+    /* Typewriter subtitle */
+    .hero-subtitle {
+      font-family: var(--font-accent); font-size: clamp(1rem, 2.2vw, 1.5rem);
+      color: rgba(255,255,255,.85); font-weight: 300; letter-spacing: .08em;
+      margin-bottom: 1.4rem; min-height: 2rem;
+      opacity: 0; animation: slideUp .9s .7s ease forwards;
+    }
+    .hero-tagline {
+      font-size: clamp(.9rem, 1.5vw, 1.1rem); color: var(--peach);
+      font-weight: 300; line-height: 1.7; margin-bottom: 2.6rem;
+      opacity: 0; animation: slideUp .9s .85s ease forwards;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: slideUp .9s 1s ease forwards;
+    }
+    .btn-primary, .btn-outline {
+      padding: .85rem 2.2rem; border-radius: 50px;
+      font-size: .88rem; font-weight: 600; letter-spacing: .08em;
+      cursor: pointer; transition: all var(--trans);
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--navy);
+      box-shadow: 0 8px 30px rgba(201,168,76,.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(201,168,76,.55);
+    }
+    .btn-outline {
+      border-color: rgba(255,255,255,.4); color: var(--white);
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(4px);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold); color: var(--gold);
+      background: rgba(201,168,76,.08);
+      transform: translateY(-3px);
+    }
+
+    /* Hero image column */
+    .hero-image-col {
+      display: flex; justify-content: center; align-items: center;
+      z-index: 2;
+      opacity: 0; animation: fadeIn 1.2s 1s ease forwards;
+    }
+    .hero-img-wrap {
+      position: relative; width: clamp(260px, 35vw, 440px); aspect-ratio: 3/4;
+      border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
+      overflow: hidden;
+      border: 3px solid rgba(201,168,76,.4);
+      box-shadow: 0 30px 80px rgba(0,0,0,.4), 0 0 0 12px rgba(201,168,76,.08);
+      animation: morphBorder 8s ease-in-out infinite;
+    }
+    @keyframes morphBorder {
+      0%,100%{ border-radius:60% 40% 55% 45%/50% 55% 45% 50% }
+      33%     { border-radius:45% 55% 40% 60%/55% 45% 55% 45% }
+      66%     { border-radius:55% 45% 60% 40%/45% 55% 45% 55% }
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .hero-img-wrap:hover img { transform: scale(1.05); }
+
+    /* Gold badge floater */
+    .hero-badge {
+      position: absolute; bottom: -18px; right: -18px;
+      width: 100px; height: 100px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 8px 30px rgba(201,168,76,.5);
+      animation: rotateBadge 12s linear infinite;
+    }
+    .hero-badge span { font-size: .62rem; font-weight: 700; letter-spacing: .08em; color: var(--navy); text-align: center; line-height: 1.3; }
+    @keyframes rotateBadge { to { transform: rotate(360deg); } }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      opacity: 0; animation: fadeIn 1s 1.8s ease forwards;
+    }
+    .scroll-indicator span { font-size: .7rem; color: rgba(255,255,255,.5); letter-spacing: .15em; text-transform: uppercase; }
+    .scroll-arrow {
+      width: 24px; height: 24px; border-right: 2px solid rgba(201,168,76,.6);
+      border-bottom: 2px solid rgba(201,168,76,.6);
+      transform: rotate(45deg);
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)} }
+
+    /* ============================================================
+       SECTION SHARED STYLES
+    ============================================================ */
+    section { padding: 7rem 4rem; }
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-accent); font-size: .9rem; font-style: italic;
+      color: var(--gold); letter-spacing: .18em; margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem;
+      color: var(--dark-txt);
+    }
+    .section-title .accent { color: var(--violet); }
+    .section-divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--peach));
+      border-radius: 4px; margin-bottom: 2rem;
+    }
+    .section-intro {
+      font-size: 1.05rem; color: var(--mid-txt); line-height: 1.85;
+      max-width: 640px;
+    }
+
+    /* Reveal animation (triggered by IntersectionObserver) */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-right { opacity: 0; transform: translateX(40px);  transition: opacity .7s ease, transform .7s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    #about {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+      max-width: 100%;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-img-frame {
+      width: 100%; aspect-ratio: 4/5;
+      border-radius: var(--radius) 80px var(--radius) 80px;
+      overflow: hidden;
+      box-shadow: 24px 24px 60px rgba(45,27,105,.18);
+    }
+    .about-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .about-accent-box {
+      position: absolute; bottom: -24px; left: -24px;
+      width: 120px; height: 120px;
+      background: linear-gradient(135deg, var(--gold), var(--peach));
+      border-radius: 20px; z-index: -1;
+    }
+    .about-stat-pill {
+      position: absolute; top: 28px; right: -20px;
+      background: var(--navy); color: var(--white);
+      border-radius: 50px; padding: .7rem 1.4rem;
+      font-size: .8rem; font-weight: 600; letter-spacing: .06em;
+      box-shadow: 0 8px 28px rgba(0,0,0,.22);
+      animation: floatPill 4s ease-in-out infinite;
+    }
+    @keyframes floatPill { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .about-stat-pill .num { font-family: var(--font-display); font-size: 1.4rem; color: var(--gold); display: block; }
+
+    .about-content .section-divider { margin-top: .5rem; }
+    .about-quote {
+      font-family: var(--font-accent); font-size: 1.35rem; font-style: italic;
+      color: var(--violet); line-height: 1.6; margin: 1.5rem 0;
+      padding-left: 1.4rem; border-left: 3px solid var(--gold);
+    }
+    .about-body { font-size: 1rem; color: var(--mid-txt); line-height: 1.9; }
+    .about-values {
+      display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1.6rem;
+    }
+    .about-values span {
+      background: linear-gradient(135deg, rgba(45,27,105,.08), rgba(201,168,76,.12));
+      border: 1px solid rgba(201,168,76,.3);
+      color: var(--plum); font-size: .78rem; font-weight: 600; letter-spacing: .08em;
+      padding: .4rem 1rem; border-radius: 50px;
+    }
+
+    /* ============================================================
+       SERVICES SECTION
+    ============================================================ */
+    #services {
+      background: linear-gradient(160deg, var(--cream) 0%, #f0eafb 100%);
+      text-align: center;
+    }
+    #services .section-title, #services .section-tag { text-align: center; }
+    #services .section-divider { margin: 0 auto 2rem; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin-top: 3.5rem; max-width: 1100px; margin-left: auto; margin-right: auto;
+    }
+    .service-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 2.8rem 2rem; text-align: center;
+      box-shadow: 0 4px 30px rgba(45,27,105,.07);
+      border: 1px solid rgba(201,168,76,.15);
+      transition: all var(--trans);
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--plum), var(--violet));
+      opacity: 0; transition: opacity var(--trans);
+    }
+    .service-card:hover { transform: translateY(-12px); box-shadow: 0 24px 60px rgba(45,27,105,.22); }
+    .service-card:hover::before { opacity: 1; }
+    .service-card > * { position: relative; z-index: 1; }
+    .service-card:hover .service-icon,
+    .service-card:hover .service-title,
+    .service-card:hover .service-desc { color: var(--white); }
+    .service-card:hover .service-icon { background: rgba(255,255,255,.15); color: var(--gold-lt); }
+
+    .service-icon {
+      width: 72px; height: 72px; border-radius: 20px; margin: 0 auto 1.4rem;
+      background: linear-gradient(135deg, rgba(45,27,105,.08), rgba(201,168,76,.12));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.9rem;
+      transition: all var(--trans);
+    }
+    .service-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
+      color: var(--dark-txt); margin-bottom: .7rem;
+      transition: color var(--trans);
+    }
+    .service-desc {
+      font-size: .9rem; color: var(--mid-txt); line-height: 1.75;
+      transition: color var(--trans);
+    }
+
+    /* ============================================================
+       SKILLS SECTION
+    ============================================================ */
+    #skills {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .skills-graphic {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem;
+    }
+    .skill-bubble {
+      background: linear-gradient(135deg, var(--navy), var(--plum));
+      border-radius: 20px; padding: 1.8rem 1.2rem; text-align: center;
+      color: var(--white); box-shadow: 0 8px 30px rgba(45,27,105,.2);
+      transition: transform var(--trans);
+      animation: floatBubble 6s ease-in-out infinite;
+    }
+    .skill-bubble:nth-child(2){ animation-delay: 1.5s; }
+    .skill-bubble:nth-child(3){ animation-delay: 3s; }
+    .skill-bubble:nth-child(4){ animation-delay: 4.5s; }
+    @keyframes floatBubble { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .skill-bubble:hover { transform: scale(1.05) translateY(-5px); }
+    .skill-bubble .sb-icon { font-size: 2.2rem; margin-bottom: .6rem; }
+    .skill-bubble .sb-label { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.75); }
+    .skill-bubble .sb-pct { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--gold-lt); }
+
+    .skills-bars { display: flex; flex-direction: column; gap: 1.8rem; }
+    .skill-bar-item {}
+    .skill-bar-header { display: flex; justify-content: space-between; margin-bottom: .5rem; }
+    .skill-bar-name { font-weight: 600; font-size: .88rem; color: var(--dark-txt); }
+    .skill-bar-pct  { font-weight: 600; font-size: .88rem; color: var(--violet); }
+    .skill-bar-track {
+      height: 8px; background: rgba(45,27,105,.1); border-radius: 50px; overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%; border-radius: 50px; width: 0;
+      background: linear-gradient(90deg, var(--plum), var(--gold));
+      transition: width 1.4s cubic-bezier(.25,.8,.25,1);
+    }
+
+    /* ============================================================
+       PORTFOLIO SECTION
+    ============================================================ */
+    #portfolio { background: linear-gradient(160deg, #f5f0ff 0%, var(--cream) 100%); }
+    .portfolio-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem; margin-top: 3rem;
+    }
+    .portfolio-card {
+      border-radius: var(--radius); overflow: hidden;
+      background: var(--white); box-shadow: 0 4px 24px rgba(45,27,105,.08);
+      transition: all var(--trans);
+      position: relative;
+    }
+    .portfolio-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(45,27,105,.18); }
+    .portfolio-card-img {
+      width: 100%; aspect-ratio: 16/10; overflow: hidden;
+      background: linear-gradient(135deg, var(--plum), var(--violet));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; color: rgba(255,255,255,.25);
+    }
+    .portfolio-card-img img { width:100%; height:100%; object-fit:cover; }
+    .portfolio-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(45,27,105,.85), rgba(201,168,76,.7));
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity var(--trans);
+    }
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+    .portfolio-overlay span {
+      color: var(--white); font-size: .8rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; border: 1.5px solid rgba(255,255,255,.6);
+      padding: .5rem 1.2rem; border-radius: 50px;
+    }
+    .portfolio-card-body { padding: 1.4rem 1.6rem; }
+    .portfolio-card-tag {
+      font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .4rem;
+    }
+    .portfolio-card-title {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+      color: var(--dark-txt); margin-bottom: .5rem;
+    }
+    .portfolio-card-desc { font-size: .85rem; color: var(--mid-txt); line-height: 1.65; }
+
+    /* ============================================================
+       TESTIMONIALS SECTION
+    ============================================================ */
+    #testimonials { background: var(--navy); text-align: center; overflow: hidden; }
+    #testimonials .section-tag { color: var(--gold-lt); }
+    #testimonials .section-title { color: var(--white); }
+    #testimonials .section-divider { margin: 0 auto 1rem; }
+    #testimonials .section-intro { color: rgba(255,255,255,.6); margin: 0 auto; }
+
+    .testi-carousel { position: relative; margin-top: 3.5rem; overflow: hidden; }
+    .testi-track {
+      display: flex; gap: 2rem;
+      transition: transform .7s cubic-bezier(.25,.8,.25,1);
+    }
+    .testi-card {
+      min-width: calc(33.333% - 1.34rem); background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: var(--radius); padding: 2.4rem;
+      text-align: left; flex-shrink: 0;
+    }
+    .testi-stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: .1em; }
+    .testi-quote {
+      font-family: var(--font-accent); font-size: 1.08rem; font-style: italic;
+      color: rgba(255,255,255,.85); line-height: 1.75; margin-bottom: 1.6rem;
+    }
+    .testi-author { display: flex; align-items: center; gap: .9rem; }
+    .testi-avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--peach));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; color: var(--navy); flex-shrink: 0;
+    }
+    .testi-name { font-weight: 600; color: var(--white); font-size: .9rem; }
+    .testi-role { font-size: .78rem; color: rgba(255,255,255,.5); margin-top: .2rem; }
+
+    .testi-controls {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; margin-top: 2.5rem;
+    }
+    .testi-btn {
+      width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,.4);
+      background: transparent; color: var(--gold); font-size: 1.1rem;
+      cursor: pointer; transition: all var(--trans);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .testi-btn:hover { background: var(--gold); color: var(--navy); }
+    .testi-dots { display: flex; gap: .5rem; }
+    .testi-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.25); cursor: pointer; transition: all var(--trans);
+    }
+    .testi-dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
+
+    /* ============================================================
+       CTA SECTION
+    ============================================================ */
+    #cta {
+      background: linear-gradient(135deg, var(--plum) 0%, var(--violet) 60%, #7b4db5 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,.15) 0%, transparent 60%);
+      top: -200px; right: -100px; pointer-events: none;
+    }
+    .cta-eyebrow {
+      font-family: var(--font-accent); font-style: italic;
+      font-size: 1.1rem; color: var(--gold-lt); letter-spacing: .14em; margin-bottom: 1rem;
+    }
+    .cta-title {
+      font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 1rem;
+    }
+    .cta-sub { font-size: 1.05rem; color: rgba(255,255,255,.7); margin-bottom: 2.8rem; line-height: 1.7; }
+    .cta-btns { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+    .btn-wa {
+      background: #25d366; color: var(--white);
+      padding: .9rem 2.2rem; border-radius: 50px;
+      font-size: .88rem; font-weight: 600; letter-spacing: .08em;
+      display: flex; align-items: center; gap: .6rem;
+      transition: all var(--trans); box-shadow: 0 8px 30px rgba(37,211,102,.4);
+    }
+    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(37,211,102,.55); }
+
+    /* ============================================================
+       CONTACT SECTION
+    ============================================================ */
+    #contact { background: var(--white); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 3rem; align-items: start;
+    }
+    .contact-items { display: flex; flex-direction: column; gap: 1.4rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.4rem 1.8rem; border-radius: 14px;
+      border: 1px solid rgba(201,168,76,.2);
+      background: linear-gradient(135deg, rgba(45,27,105,.02), rgba(201,168,76,.04));
+      transition: all var(--trans);
+    }
+    .contact-item:hover {
+      border-color: rgba(201,168,76,.5);
+      box-shadow: 0 8px 28px rgba(45,27,105,.1);
+      transform: translateX(6px);
+    }
+    .contact-icon {
+      width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--plum), var(--violet));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: var(--gold-lt);
+    }
+    .contact-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--light-txt); margin-bottom: .2rem; }
+    .contact-value { font-size: .95rem; font-weight: 600; color: var(--dark-txt); }
+    .contact-value a:hover { color: var(--violet); }
+
+    /* Contact form */
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: .45rem; }
+    .form-group label { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mid-txt); }
+    .form-group input, .form-group textarea {
+      padding: .85rem 1.1rem; border-radius: 10px;
+      border: 1.5px solid rgba(45,27,105,.15);
+      background: rgba(45,27,105,.02); font-family: var(--font-body);
+      font-size: .9rem; color: var(--dark-txt);
+      transition: all var(--trans); outline: none; resize: none;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--violet); box-shadow: 0 0 0 4px rgba(61,44,141,.08);
+    }
+    .form-group textarea { min-height: 120px; }
+    .form-submit {
+      padding: .95rem 2.6rem; border: none; border-radius: 50px;
+      background: linear-gradient(135deg, var(--plum), var(--violet));
+      color: var(--white); font-family: var(--font-body);
+      font-size: .9rem; font-weight: 600; letter-spacing: .08em;
+      cursor: pointer; transition: all var(--trans);
+      box-shadow: 0 8px 28px rgba(45,27,105,.35);
+      align-self: flex-start;
+    }
+    .form-submit:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(45,27,105,.45); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--navy); padding: 2.5rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--font-display); font-size: 1.1rem; color: var(--white); }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy { font-size: .78rem; color: rgba(255,255,255,.4); }
+    .footer-socials { display: flex; gap: 1rem; }
+    .footer-socials a {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.6); font-size: .9rem;
+      transition: all var(--trans);
+    }
+    .footer-socials a:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+    /* ============================================================
+       CHATBOT
+    ============================================================ */
+    #chat-toggle {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--plum), var(--violet));
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 30px rgba(45,27,105,.5);
+      transition: all var(--trans);
+      animation: chatPulse 3s ease-in-out infinite;
+    }
+    @keyframes chatPulse {
+      0%,100%{ box-shadow: 0 8px 30px rgba(45,27,105,.5) }
+      50%     { box-shadow: 0 8px 40px rgba(201,168,76,.5), 0 0 0 10px rgba(201,168,76,.1) }
+    }
+    #chat-toggle:hover { transform: scale(1.1); }
+    #chat-toggle svg { width: 24px; height: 24px; fill: var(--white); transition: var(--trans); }
+    #chat-toggle.open svg { display: none; }
+    #chat-toggle.open::after { content: '✕'; color: var(--white); font-size: 1.1rem; font-weight: 600; }
+
+    #chat-window {
+      position: fixed; bottom: 6.5rem; right: 2rem; z-index: 499;
+      width: 360px; max-height: 520px;
+      background: var(--white); border-radius: 20px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.22), 0 0 0 1px rgba(201,168,76,.15);
+      display: flex; flex-direction: column; overflow: hidden;
+      opacity: 0; transform: translateY(20px) scale(.95);
+      pointer-events: none;
+      transition: all .35s cubic-bezier(.25,.8,.25,1);
+    }
+    #chat-window.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--plum), var(--violet));
+      padding: 1.2rem 1.4rem;
+      display: flex; align-items: center; gap: .9rem;
+    }
+    .chat-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; color: var(--navy); flex-shrink: 0;
+    }
+    .chat-header-info { flex: 1; }
+    .chat-name { font-weight: 700; color: var(--white); font-size: .92rem; }
+    .chat-status { font-size: .72rem; color: rgba(255,255,255,.65); display: flex; align-items: center; gap: .3rem; margin-top: .15rem; }
+    .chat-status::before { content:''; width:7px; height:7px; border-radius:50%; background:#4ade80; display:inline-block; }
+
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 1.2rem;
+      display: flex; flex-direction: column; gap: .8rem;
+      max-height: 280px;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(45,27,105,.2); border-radius: 2px; }
+
+    .msg { max-width: 82%; animation: msgIn .35s ease; }
+    @keyframes msgIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .msg.bot { align-self: flex-start; }
+    .msg.user { align-self: flex-end; }
+    .msg-bubble {
+      padding: .7rem 1rem; border-radius: 14px;
+      font-size: .85rem; line-height: 1.55;
+    }
+    .msg.bot .msg-bubble {
+      background: rgba(45,27,105,.07); color: var(--dark-txt);
+      border-bottom-left-radius: 4px;
+    }
+    .msg.user .msg-bubble {
+      background: linear-gradient(135deg, var(--plum), var(--violet)); color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-quick {
+      padding: .6rem 1.2rem; display: flex; flex-wrap: wrap; gap: .5rem;
+      border-top: 1px solid rgba(45,27,105,.08);
+    }
+    .quick-btn {
+      font-size: .72rem; font-weight: 600; padding: .35rem .85rem;
+      border-radius: 50px; border: 1.5px solid rgba(45,27,105,.2);
+      background: transparent; color: var(--violet); cursor: pointer;
+      transition: all var(--trans);
+    }
+    .quick-btn:hover { background: var(--violet); color: var(--white); border-color: var(--violet); }
+
+    .chat-input-row {
+      display: flex; gap: .6rem; padding: .9rem 1.2rem;
+      border-top: 1px solid rgba(45,27,105,.08);
+    }
+    .chat-input {
+      flex: 1; border: 1.5px solid rgba(45,27,105,.15);
+      border-radius: 50px; padding: .55rem 1rem;
+      font-family: var(--font-body); font-size: .83rem; outline: none;
+      transition: border-color var(--trans);
+    }
+    .chat-input:focus { border-color: var(--violet); }
+    .chat-send {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--plum), var(--violet));
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: transform var(--trans);
+    }
+    .chat-send:hover { transform: scale(1.1); }
+    .chat-send svg { width: 16px; height: 16px; fill: var(--white); }
+
+    /* ============================================================
+       KEYFRAMES (shared)
+    ============================================================ */
+    @keyframes slideUp  { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      #navbar { padding: 1rem 2rem; }
+      #navbar.scrolled { padding: .75rem 2rem; }
+      section { padding: 5rem 2.5rem; }
+      .hero-inner { gap: 2.5rem; padding: 7rem 2.5rem 4rem; }
+      #about { padding: 5rem 2.5rem; gap: 3rem; }
+      #skills { padding: 5rem 2.5rem; gap: 3rem; }
+      .contact-grid { gap: 3rem; }
+      footer { padding: 2rem 2.5rem; }
+      #chat-window { width: 320px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: fixed; inset: 0; top: 0;
+        background: rgba(15,12,41,.97); align-items: center; justify-content: center;
+        gap: 2rem; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1rem; }
+      .nav-hamburger { display: flex; z-index: 100; }
+
+      .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 6rem 1.5rem 3rem; }
+      .hero-btns { justify-content: center; }
+      .hero-image-col { order: -1; }
+      .hero-img-wrap { width: 220px; }
+
+      #about, #skills { grid-template-columns: 1fr; }
+      .about-image-wrap { max-width: 380px; margin: 0 auto; }
+      .skills-graphic { grid-template-columns: 1fr 1fr; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .testi-card { min-width: 90%; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; align-items: center; text-align: center; }
+      #chat-window { width: calc(100vw - 2rem); right: 1rem; }
+      section { padding: 4rem 1.5rem; }
+      #about, #skills { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =============================================
+       CUSTOM CURSOR
+  ============================================= -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- =============================================
+       PAGE LOADER
+  ============================================= -->
+  <div id="loader">
+    <div class="loader-name">Doris Abena Gyimah</div>
+    <div class="loader-line"></div>
+  </div>
+
+  <!-- =============================================
+       NAVBAR
+  ============================================= -->
+  <nav id="navbar">
+    <div class="nav-logo">Doris<span>.</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero"         class="nav-link">Home</a></li>
+      <li><a href="#about"        class="nav-link">About</a></li>
+      <li><a href="#services"     class="nav-link">Services</a></li>
+      <li><a href="#skills"       class="nav-link">Skills</a></li>
+      <li><a href="#portfolio"    class="nav-link">Portfolio</a></li>
+      <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="#contact"      class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- =============================================
+       HERO SECTION
+  ============================================= -->
+  <section id="hero">
+
+    <!-- Floating orbs for atmosphere -->
+    <div class="orb" style="width:180px;height:180px;top:15%;left:8%;
+      background:radial-gradient(circle,rgba(201,168,76,.12),transparent 70%);
+      animation-duration:9s;"></div>
+    <div class="orb" style="width:120px;height:120px;top:70%;left:20%;
+      background:radial-gradient(circle,rgba(245,198,160,.1),transparent 70%);
+      animation-duration:7s;animation-delay:2s;"></div>
+    <div class="orb" style="width:240px;height:240px;top:20%;right:5%;
+      background:radial-gradient(circle,rgba(93,44,145,.15),transparent 70%);
+      animation-duration:11s;animation-delay:1s;"></div>
+
+    <div class="hero-inner">
+      <!-- TEXT -->
+      <div class="hero-text">
+        <p class="hero-eyebrow">Welcome to my world ✦</p>
+        <h1 class="hero-name">
+          Doris<br><span class="gold">Abena</span><br>Gyimah
+        </h1>
+        <p class="hero-subtitle" id="typewriter"></p>
+        <p class="hero-tagline">
+          Inspiring minds. Empowering youth.<br>Shaping the future — one voice at a time.
+        </p>
+        <div class="hero-btns">
+          <a href="#contact"   class="btn-primary">✦ Book Me</a>
+          <a href="#portfolio" class="btn-outline">View My Work →</a>
+        </div>
+      </div>
+
+      <!-- IMAGE -->
+      <div class="hero-image-col">
+        <div class="hero-img-wrap" style="position:relative;">
+          <!--
+            REPLACE src="your-image.jpg" with your actual photo path.
+            Recommended: portrait orientation, min 600×800px.
+          -->
+          <img src="IMG-20260405-WA0050.jpg" alt="Doris Abena Gyimah"
+               onerror="this.parentNode.style.background='linear-gradient(135deg,#2d1b69,#5c2d91)';this.style.display='none'"/>
+
+          <!-- Shown when image is missing — remove once real photo is added -->
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+                      align-items:center;justify-content:center;color:rgba(255,255,255,.4);">
+            <div style="font-size:5rem;">👩🏾</div>
+            <p style="font-size:.75rem;letter-spacing:.12em;margin-top:.6rem;">YOUR PHOTO HERE</p>
+          </div>
+
+          <div class="hero-badge">
+            <span>Speaker<br>&amp;<br>Advocate</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.hero-inner -->
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       ABOUT SECTION
+  ============================================= -->
+  <section id="about">
+
+    <!-- Image column -->
+    <div class="about-image-wrap reveal-left">
+      <div class="about-img-frame">
+        <!--
+          REPLACE src with a secondary portrait or candid photo.
+        -->
+        <img src="IMG-20260406-WA0033.jpg" alt="Doris speaking"
+             onerror="this.parentNode.style.background='linear-gradient(135deg,#0f0c29,#3d2c8d)';this.style.display='none'"/>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+                    align-items:center;justify-content:center;color:rgba(255,255,255,.35);
+                    font-size:4rem;">🎤</div>
+      </div>
+      <div class="about-accent-box"></div>
+      <div class="about-stat-pill">
+        <span class="num">500+</span>
+        Youth Reached
+      </div>
+    </div>
+
+    <!-- Text column -->
+    <div class="about-content reveal-right">
+      <span class="section-tag">My Story</span>
+      <h2 class="section-title">A Voice Built on<br><span class="accent">Purpose & Passion</span></h2>
+      <div class="section-divider"></div>
+
+      <blockquote class="about-quote">
+        "The most powerful thing a young person can have is someone who believes in their potential before they do."
+      </blockquote>
+
+      <p class="about-body">
+        My name is <strong>Doris Abena Gyimah</strong> — a passionate Public Speaker, Youth Advocate, and Educator dedicated to lighting the fire of possibility in every young person I encounter.
+      </p>
+      <br>
+      <p class="about-body">
+        Growing up, I understood firsthand the transformative power of a single, well-timed word of encouragement. That experience became my mission: to stand in every room, on every stage, in every classroom — and speak life into the next generation.
+      </p>
+      <br>
+      <p class="about-body">
+        As a teacher of <strong>Basic Morals</strong>, I have witnessed the quiet revolution that happens when young people are given not just knowledge, but values, character, and a sense of identity. My advocacy work extends beyond the classroom — into communities, conferences, and conversations that matter.
+      </p>
+
+      <div class="about-values">
+        <span>✦ Youth Empowerment</span>
+        <span>✦ Moral Education</span>
+        <span>✦ Public Speaking</span>
+        <span>✦ Community Impact</span>
+        <span>✦ Leadership</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =============================================
+       SERVICES SECTION
+  ============================================= -->
+  <section id="services">
+    <span class="section-tag reveal">What I Offer</span>
+    <h2 class="section-title reveal">Services That <span class="accent">Create Impact</span></h2>
+    <div class="section-divider reveal" style="margin:0 auto 1rem;"></div>
+    <p class="section-intro reveal" style="margin:0 auto 0;">
+      Every service I offer is grounded in authenticity, purpose, and a genuine desire to see people — especially the youth — thrive and rise to their fullest potential.
+    </p>
+
+    <div class="services-grid">
+
+      <!-- Card 1 -->
+      <div class="service-card reveal">
+        <div class="service-icon">🎤</div>
+        <h3 class="service-title">Public Speaking</h3>
+        <p class="service-desc">
+          Keynote addresses, panel discussions, school assemblies, and conference talks — delivered with energy, clarity, and a message that stays long after the applause fades. I speak on youth identity, purpose, leadership, and resilience.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card reveal" style="transition-delay:.15s">
+        <div class="service-icon">🌟</div>
+        <h3 class="service-title">Youth Advocacy</h3>
+        <p class="service-desc">
+          Championing the rights, voices, and futures of young people through community programs, awareness campaigns, and strategic partnerships. I work to ensure every young person is seen, heard, and supported.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="service-card reveal" style="transition-delay:.3s">
+        <div class="service-icon">📚</div>
+        <h3 class="service-title">Teaching & Mentorship</h3>
+        <p class="service-desc">
+          Structured teaching of Basic Morals and life values to young learners, combined with one-on-one and group mentorship that equips youth with the character, confidence, and clarity to navigate life successfully.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================================
+       SKILLS SECTION
+  ============================================= -->
+  <section id="skills">
+
+    <!-- Left: bubbles -->
+    <div class="skills-graphic">
+      <div class="skill-bubble">
+        <div class="sb-icon">🎤</div>
+        <div class="sb-pct">95%</div>
+        <div class="sb-label">Public Speaking</div>
+      </div>
+      <div class="skill-bubble">
+        <div class="sb-icon">💬</div>
+        <div class="sb-pct">90%</div>
+        <div class="sb-label">Communication</div>
+      </div>
+      <div class="skill-bubble">
+        <div class="sb-icon">✂️</div>
+        <div class="sb-pct">85%</div>
+        <div class="sb-label">Editing</div>
+      </div>
+      <div class="skill-bubble">
+        <div class="sb-icon">💻</div>
+        <div class="sb-pct">80%</div>
+        <div class="sb-label">Computer Literacy</div>
+      </div>
+    </div>
+
+    <!-- Right: bars + text -->
+    <div>
+      <span class="section-tag reveal">My Expertise</span>
+      <h2 class="section-title reveal">Skills That <span class="accent">Set Me Apart</span></h2>
+      <div class="section-divider reveal"></div>
+      <p class="section-intro reveal" style="margin-bottom:2rem;">
+        A combination of natural talent, intentional training, and years of practical experience has shaped a skill set built for meaningful impact.
+      </p>
+
+      <div class="skills-bars" id="skillsBars">
+
+        <div class="skill-bar-item reveal">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Public Speaking</span>
+            <span class="skill-bar-pct">95%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="95"></div>
+          </div>
+        </div>
+
+        <div class="skill-bar-item reveal" style="transition-delay:.1s">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Communication & Facilitation</span>
+            <span class="skill-bar-pct">90%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="90"></div>
+          </div>
+        </div>
+
+        <div class="skill-bar-item reveal" style="transition-delay:.2s">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Content Editing</span>
+            <span class="skill-bar-pct">85%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="85"></div>
+          </div>
+        </div>
+
+        <div class="skill-bar-item reveal" style="transition-delay:.3s">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Computer Literacy</span>
+            <span class="skill-bar-pct">80%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="80"></div>
+          </div>
+        </div>
+
+        <div class="skill-bar-item reveal" style="transition-delay:.4s">
+          <div class="skill-bar-header">
+            <span class="skill-bar-name">Youth Mentorship</span>
+            <span class="skill-bar-pct">92%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="92"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =============================================
+       PORTFOLIO / EXPERIENCE SECTION
+  ============================================= -->
+  <section id="portfolio">
+    <span class="section-tag reveal">My Work</span>
+    <h2 class="section-title reveal">Experience &amp; <span class="accent">Highlights</span></h2>
+    <div class="section-divider reveal"></div>
+    <p class="section-intro reveal">
+      A curated look at speaking engagements, teaching programs, and youth advocacy initiatives that have shaped communities and transformed lives.
+    </p>
+
+    <div class="portfolio-grid">
+
+      <!-- Card 1 -->
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">
+          <!--
+            REPLACE src="speaking-1.jpg" with your actual event photo.
+          -->
+          <img src="IMG-20260406-WA0035.jpg" alt="Speaking Engagement"
+               onerror="this.style.display='none'"/>
+          🎤
+        </div>
+        <div class="portfolio-overlay"><span>View →</span></div>
+        <div class="portfolio-card-body">
+          <p class="portfolio-card-tag">Speaking Engagement</p>
+          <h3 class="portfolio-card-title">Youth Leadership Summit</h3>
+          <p class="portfolio-card-desc">Delivered a keynote on identity and purpose to over 200 young people, sparking meaningful conversations about their futures.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="portfolio-card reveal" style="transition-delay:.12s">
+        <div class="portfolio-card-img" style="background:linear-gradient(135deg,#1a0a3d,#5c2d91);">
+          <img src="IMG-20260405-WA0050.jpg" alt="Teaching Session"
+               onerror="this.style.display='none'"/>
+          📚
+        </div>
+        <div class="portfolio-overlay"><span>View →</span></div>
+        <div class="portfolio-card-body">
+          <p class="portfolio-card-tag">Teaching Session</p>
+          <h3 class="portfolio-card-title">Basic Morals Classroom Series</h3>
+          <p class="portfolio-card-desc">An immersive classroom program designed to instil core values in young learners through engaging, story-driven lessons.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="portfolio-card reveal" style="transition-delay:.24s">
+        <div class="portfolio-card-img" style="background:linear-gradient(135deg,#2d0a1a,#8b2d52);">
+          <img src="IMG-20260406-WA0033.jpg" alt="Youth Program"
+               onerror="this.style.display='none'"/>
+          🌟
+        </div>
+        <div class="portfolio-overlay"><span>View →</span></div>
+        <div class="portfolio-card-body">
+          <p class="portfolio-card-tag">Youth Advocacy</p>
+          <h3 class="portfolio-card-title">Community Empowerment Initiative</h3>
+          <p class="portfolio-card-desc">A grassroots program bringing together youth from underserved communities for mentorship, skills-building, and self-discovery.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="portfolio-card reveal" style="transition-delay:.36s">
+        <div class="portfolio-card-img" style="background:linear-gradient(135deg,#0a1e3d,#1e4d8b);">
+          <img src="IMG-20260405-WA0050.jpg" alt="Panel Discussion"
+               onerror="this.style.display='none'"/>
+          💬
+        </div>
+        <div class="portfolio-overlay"><span>View →</span></div>
+        <div class="portfolio-card-body">
+          <p class="portfolio-card-tag">Panel Discussion</p>
+          <h3 class="portfolio-card-title">Women in Leadership Forum</h3>
+          <p class="portfolio-card-desc">Participated as a panelist, sharing insights on young women navigating leadership, purpose, and personal brand.</p>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="portfolio-card reveal" style="transition-delay:.48s">
+        <div class="portfolio-card-img" style="background:linear-gradient(135deg,#0d2d1a,#1a5c3d);">
+          <img src="IMG-20260406-WA0035.jpg" alt="Workshop"
+               onerror="this.style.display='none'"/>
+          🏫
+        </div>
+        <div class="portfolio-overlay"><span>View →</span></div>
+        <div class="portfolio-card-body">
+          <p class="portfolio-card-tag">Workshop</p>
+          <h3 class="portfolio-card-title">Digital Literacy for Youth</h3>
+          <p class="portfolio-card-desc">Facilitated a hands-on workshop equipping young people with computer skills and digital safety knowledge.</p>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="portfolio-card reveal" style="transition-delay:.6s">
+        <div class="portfolio-card-img" style="background:linear-gradient(135deg,#1e0a2d,#4d1a6b);">
+          <img src="IMG-20260406-WA0033.jpg" alt="Mentorship"
+               onerror="this.style.display='none'"/>
+          🤝
+        </div>
+        <div class="portfolio-overlay"><span>View →</span></div>
+        <div class="portfolio-card-body">
+          <p class="portfolio-card-tag">Mentorship</p>
+          <h3 class="portfolio-card-title">One-on-One Youth Coaching</h3>
+          <p class="portfolio-card-desc">Ongoing personal mentorship sessions helping young people define their goals and step confidently into their potential.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================================
+       TESTIMONIALS SECTION
+  ============================================= -->
+  <section id="testimonials">
+    <span class="section-tag reveal">What They Say</span>
+    <h2 class="section-title reveal">Voices That <span style="color:var(--gold);">Matter</span></h2>
+    <div class="section-divider reveal" style="margin:0 auto 1rem;"></div>
+    <p class="section-intro reveal">
+      The greatest measure of impact is found in the words of those whose lives have been touched.
+    </p>
+
+    <div class="testi-carousel reveal">
+      <div class="testi-track" id="testiTrack">
+
+        <!-- Testimonial 1 -->
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">
+            "Doris has a rare gift — the ability to hold an entire room captive with nothing but her voice and her truth. Her keynote at our summit changed the way my students see themselves. A truly transformative speaker."
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar">AK</div>
+            <div>
+              <div class="testi-name">Ama Koomson</div>
+              <div class="testi-role">School Headmistress, Accra</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">
+            "Working with Doris on our youth empowerment program was nothing short of incredible. She connects with young people on a deeply human level. Her passion for advocacy is authentic and contagious."
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar">KM</div>
+            <div>
+              <div class="testi-name">Kwame Mensah</div>
+              <div class="testi-role">NGO Program Director</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">
+            "I sat in Doris's morals class and walked out a different person. She doesn't just teach — she plants seeds of greatness. Every young person in Ghana deserves to hear her speak."
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar">EA</div>
+            <div>
+              <div class="testi-name">Efua Acheampong</div>
+              <div class="testi-role">Student, 19 — Cape Coast</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">
+            "Doris stood before 300 young women at our leadership forum and delivered a message so powerful, people were in tears — the good kind. She is a force. Book her before the world discovers her."
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar">SB</div>
+            <div>
+              <div class="testi-name">Serwaa Boateng</div>
+              <div class="testi-role">Event Organiser & Coach</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.testi-track -->
+    </div><!-- /.testi-carousel -->
+
+    <div class="testi-controls">
+      <button class="testi-btn" id="testiPrev">&#8592;</button>
+      <div class="testi-dots" id="testiDots"></div>
+      <button class="testi-btn" id="testiNext">&#8594;</button>
+    </div>
+  </section>
+
+  <!-- =============================================
+       CTA SECTION
+  ============================================= -->
+  <section id="cta">
+    <p class="cta-eyebrow reveal">Ready to make an impact?</p>
+    <h2 class="cta-title reveal">Let's Work<br>Together</h2>
+    <p class="cta-sub reveal">
+      Whether you need a speaker for your next event, an advocate for your cause,<br>
+      or a mentor for the youth in your community — I am ready.
+    </p>
+    <div class="cta-btns reveal">
+      <a href="#contact" class="btn-primary" style="font-size:.88rem;padding:.9rem 2.4rem;">✉ Contact Me</a>
+      <a href="https://wa.me/233208331927?text=Hello%20Doris%2C%20I%20would%20like%20to%20work%20with%20you"
+         target="_blank" rel="noopener" class="btn-wa">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        WhatsApp Me
+      </a>
+    </div>
+  </section>
+
+  <!-- =============================================
+       CONTACT SECTION
+  ============================================= -->
+  <section id="contact">
+    <span class="section-tag reveal">Get In Touch</span>
+    <h2 class="section-title reveal">Let's Start a <span class="accent">Conversation</span></h2>
+    <div class="section-divider reveal"></div>
+
+    <div class="contact-grid">
+
+      <!-- Contact info -->
+      <div class="contact-items">
+
+        <a href="mailto:abenagyimahdoris@gmail.com" class="contact-item reveal">
+          <div class="contact-icon">✉</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">abenagyimahdoris@gmail.com</div>
+          </div>
+        </a>
+
+        <a href="tel:+233208331927" class="contact-item reveal" style="transition-delay:.1s">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">Phone / WhatsApp</div>
+            <div class="contact-value">+233 20 833 1927</div>
+          </div>
+        </a>
+
+        <a href="https://wa.me/233208331927?text=Hello%20Doris%2C%20I%20would%20like%20to%20work%20with%20you"
+           target="_blank" rel="noopener" class="contact-item reveal" style="transition-delay:.2s">
+          <div class="contact-icon" style="background:linear-gradient(135deg,#128c7e,#25d366);">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-value">Chat with me directly →</div>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/doris-abena-gyimah-377ab6332"
+           target="_blank" rel="noopener" class="contact-item reveal" style="transition-delay:.3s">
+          <div class="contact-icon" style="background:linear-gradient(135deg,#0077b5,#0a66c2);">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-value">Connect with me →</div>
+          </div>
+        </a>
+
+      </div><!-- /.contact-items -->
+
+      <!-- Contact form -->
+      <div class="reveal-right">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="form-name">Your Name</label>
+              <input type="text" id="form-name" placeholder="e.g. Akua Boateng"/>
+            </div>
+            <div class="form-group">
+              <label for="form-email">Email Address</label>
+              <input type="email" id="form-email" placeholder="you@example.com"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="form-subject">Subject</label>
+            <input type="text" id="form-subject" placeholder="e.g. Speaking Booking Enquiry"/>
+          </div>
+          <div class="form-group">
+            <label for="form-msg">Message</label>
+            <textarea id="form-msg" placeholder="Tell me about your event, project, or how you'd like to collaborate..."></textarea>
+          </div>
+          <button class="form-submit" onclick="submitForm()">Send Message ✦</button>
+          <div id="form-feedback" style="font-size:.85rem;color:var(--violet);margin-top:.5rem;min-height:1.2em;"></div>
+        </div>
+      </div>
+
+    </div><!-- /.contact-grid -->
+  </section>
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer>
+    <div class="footer-logo">Doris<span>.</span></div>
+    <p class="footer-copy">© 2026 Doris Abena Gyimah. Inspiring minds. Empowering youth.</p>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/doris-abena-gyimah-377ab6332" target="_blank" rel="noopener" title="LinkedIn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+      <a href="mailto:abenagyimahdoris@gmail.com" title="Email">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </a>
+      <a href="https://wa.me/233208331927?text=Hello%20Doris%2C%20I%20would%20like%20to%20work%20with%20you" target="_blank" rel="noopener" title="WhatsApp">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- =============================================
+       CHATBOT
+  ============================================= -->
+
+  <!-- Floating toggle button -->
+  <button id="chat-toggle" onclick="toggleChat()" title="Chat with Doris's assistant">
+    <!-- Chat bubble icon -->
+    <svg viewBox="0 0 24 24">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10H6V10h12v2zm0-3H6V7h12v2z"/>
+    </svg>
+  </button>
+
+  <!-- Chat window -->
+  <div id="chat-window">
+    <div class="chat-header">
+      <div class="chat-avatar">D</div>
+      <div class="chat-header-info">
+        <div class="chat-name">Doris's Assistant</div>
+        <div class="chat-status">Online — Happy to help!</div>
+      </div>
+    </div>
+
+    <!-- Messages area -->
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg bot">
+        <div class="msg-bubble">
+          Hi there! 👋 I'm Doris's virtual assistant. I can help you learn about her work, book a session, or answer any questions. What would you like to know?
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick questions -->
+    <div class="chat-quick" id="chatQuick">
+      <button class="quick-btn" onclick="quickAsk('Who is Doris?')">Who is Doris?</button>
+      <button class="quick-btn" onclick="quickAsk('What services do you offer?')">Services</button>
+      <button class="quick-btn" onclick="quickAsk('How can I book you?')">Book Doris</button>
+      <button class="quick-btn" onclick="quickAsk('What do you stand for?')">Her Values</button>
+    </div>
+
+    <!-- Input row -->
+    <div class="chat-input-row">
+      <input type="text" class="chat-input" id="chatInput"
+             placeholder="Ask me anything…"
+             onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button class="chat-send" onclick="sendChat()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    /* ===================================================
+       1. PAGE LOADER
+    =================================================== */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 1800);
+    });
+
+    /* ===================================================
+       2. CUSTOM CURSOR
+    =================================================== */
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left  = mx + 'px';
+      dot.style.top   = my + 'px';
+    });
+
+    // Smooth ring follow
+    (function animateCursor() {
+      rx += (mx - rx) * .12;
+      ry += (my - ry) * .12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateCursor);
+    })();
+
+    // Scale on hover over interactive elements
+    document.querySelectorAll('a, button, .service-card, .portfolio-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        dot.style.transform  = 'translate(-50%,-50%) scale(2)';
+        ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
+        ring.style.opacity   = '.3';
+      });
+      el.addEventListener('mouseleave', () => {
+        dot.style.transform  = 'translate(-50%,-50%) scale(1)';
+        ring.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.opacity   = '.6';
+      });
+    });
+
+    /* ===================================================
+       3. STICKY NAVBAR + ACTIVE LINK HIGHLIGHTING
+    =================================================== */
+    const navbar = document.getElementById('navbar');
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      // Toggle scrolled class
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+
+      // Active section detection
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    });
+
+    /* ===================================================
+       4. HAMBURGER MENU
+    =================================================== */
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    // Close when a link is clicked
+    document.querySelectorAll('.nav-link').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    /* ===================================================
+       5. TYPEWRITER EFFECT (hero subtitle)
+    =================================================== */
+    const phrases = [
+      'Public Speaker',
+      'Youth Advocate',
+      'Educator',
+      'Mentor & Voice for Youth'
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const tw = document.getElementById('typewriter');
+
+    function type() {
+      const phrase = phrases[pi];
+      if (!deleting) {
+        tw.textContent = phrase.slice(0, ++ci);
+        if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+      } else {
+        tw.textContent = phrase.slice(0, --ci);
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+      }
+      setTimeout(type, deleting ? 55 : 95);
+    }
+    setTimeout(type, 1200);
+
+    /* ===================================================
+       6. SCROLL REVEAL ANIMATIONS
+    =================================================== */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          // Animate skill bars when visible
+          e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Also observe skill section specifically
+    const skillsSection = document.getElementById('skills');
+    const skillObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+      }
+    }, { threshold: 0.3 });
+    skillObserver.observe(skillsSection);
+
+    /* ===================================================
+       7. TESTIMONIALS CAROUSEL
+    =================================================== */
+    const track  = document.getElementById('testiTrack');
+    const cards  = track.querySelectorAll('.testi-card');
+    const dotsEl = document.getElementById('testiDots');
+    let   tIdx   = 0;
+    let   perView = window.innerWidth < 768 ? 1 : 3;
+
+    // Build dots
+    cards.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'testi-dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goToSlide(i);
+      dotsEl.appendChild(d);
+    });
+
+    function goToSlide(i) {
+      tIdx = Math.max(0, Math.min(i, cards.length - perView));
+      const w = cards[0].offsetWidth + 32; // card width + gap
+      track.style.transform = `translateX(-${tIdx * w}px)`;
+      dotsEl.querySelectorAll('.testi-dot').forEach((d, j) => {
+        d.classList.toggle('active', j === tIdx);
+      });
+    }
+
+    document.getElementById('testiNext').onclick = () => goToSlide(tIdx + 1);
+    document.getElementById('testiPrev').onclick = () => {
+      goToSlide(tIdx > 0 ? tIdx - 1 : cards.length - perView);
+    };
+
+    // Auto-advance
+    let autoTesti = setInterval(() => goToSlide((tIdx + 1) % (cards.length - perView + 1)), 5000);
+    track.parentElement.addEventListener('mouseenter', () => clearInterval(autoTesti));
+    track.parentElement.addEventListener('mouseleave', () => {
+      autoTesti = setInterval(() => goToSlide((tIdx + 1) % (cards.length - perView + 1)), 5000);
+    });
+
+    window.addEventListener('resize', () => {
+      perView = window.innerWidth < 768 ? 1 : 3;
+      goToSlide(0);
+    });
+
+    /* ===================================================
+       8. CONTACT FORM SUBMISSION (frontend only demo)
+    =================================================== */
+    function submitForm() {
+      const name    = document.getElementById('form-name').value.trim();
+      const email   = document.getElementById('form-email').value.trim();
+      const subject = document.getElementById('form-subject').value.trim();
+      const msg     = document.getElementById('form-msg').value.trim();
+      const fb      = document.getElementById('form-feedback');
+
+      if (!name || !email || !msg) {
+        fb.style.color = '#c94c4c';
+        fb.textContent = 'Please fill in at least your name, email and message.';
+        return;
+      }
+
+      // Build a mailto link as a fallback (works without a backend)
+      const mailto = `mailto:abenagyimahdoris@gmail.com?subject=${encodeURIComponent(subject || 'Enquiry from Portfolio')}&body=${encodeURIComponent(`Hi Doris,\n\nMy name is ${name} (${email}).\n\n${msg}`)}`;
+      window.location.href = mailto;
+
+      fb.style.color = 'var(--violet)';
+      fb.textContent = '✦ Message prepared — your email client will open momentarily.';
+    }
+
+    /* ===================================================
+       9. CHATBOT
+    =================================================== */
+
+    // Predefined Q&A bank
+    const chatBrain = {
+      'who is doris': `Doris Abena Gyimah is a passionate Public Speaker, Youth Advocate, and Educator based in Ghana 🇬🇭. She speaks on purpose, identity, leadership, and youth empowerment — reaching hundreds of young people through talks, classroom teaching, and community programs.`,
+
+      'what services': `Doris offers three core services:\n\n🎤 **Public Speaking** — keynotes, assemblies, conferences\n🌟 **Youth Advocacy** — community programs & campaigns\n📚 **Teaching & Mentorship** — Basic Morals classes & personal coaching\n\nScroll to the Services section to learn more!`,
+
+      'book': `To book Doris for your event or program:\n\n✉ Email: abenagyimahdoris@gmail.com\n📱 WhatsApp: +233 20 833 1927\n\nOr use the Contact form below. She'd love to hear from you!`,
+
+      'stand for': `Doris stands for:\n✦ Youth empowerment & voice\n✦ Moral education & character\n✦ Inclusive leadership\n✦ Community-driven impact\n✦ Authenticity & courage\n\nHer mission: "Inspiring minds. Empowering youth. Shaping the future."`,
+
+      'contact': `You can reach Doris at:\n✉ abenagyimahdoris@gmail.com\n📱 +233 20 833 1927 (WhatsApp)\n💼 LinkedIn: linkedin.com/in/doris-abena-gyimah-377ab6332`,
+
+      'skills': `Doris's key skills include:\n🎤 Public Speaking (95%)\n💬 Communication (90%)\n✂️ Content Editing (85%)\n💻 Computer Literacy (80%)\n🤝 Youth Mentorship (92%)`,
+
+      'hello': `Hello! 👋 So lovely to meet you! How can I help you today? You can ask me about Doris, her services, how to book her, or anything else!`,
+
+      'hi': `Hi there! 😊 Welcome to Doris's portfolio. What would you like to know?`,
+
+      'default': `Great question! I'm not sure I have the exact answer for that, but you can reach Doris directly:\n✉ abenagyimahdoris@gmail.com\n📱 +233 20 833 1927 (WhatsApp)\n\nShe'll be happy to help! 💜`
+    };
+
+    function getBotReply(input) {
+      const q = input.toLowerCase();
+      for (const key in chatBrain) {
+        if (q.includes(key)) return chatBrain[key];
+      }
+      return chatBrain['default'];
+    }
+
+    function addMessage(text, role) {
+      const msgs = document.getElementById('chatMessages');
+      const div  = document.createElement('div');
+      div.className = 'msg ' + role;
+      div.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function sendChat() {
+      const input = document.getElementById('chatInput');
+      const val   = input.value.trim();
+      if (!val) return;
+      addMessage(val, 'user');
+      input.value = '';
+      // Simulate typing delay
+      setTimeout(() => addMessage(getBotReply(val), 'bot'), 600);
+    }
+
+    function quickAsk(q) {
+      addMessage(q, 'user');
+      setTimeout(() => addMessage(getBotReply(q), 'bot'), 500);
+      // Hide quick buttons after first use to save space
+      document.getElementById('chatQuick').style.display = 'none';
+    }
+
+    function toggleChat() {
+      const win  = document.getElementById('chat-window');
+      const btn  = document.getElementById('chat-toggle');
+      win.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+
+  </script>
+
+</body>
+</html>
